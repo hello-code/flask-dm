@@ -26,7 +26,7 @@ def add():
     return "ok"
 
 from .forms import MaterialForm
-from flask import request, redirect, url_for, render_template
+from flask import request, redirect, url_for, render_template, flash
 @material.route('/material-add', methods=['GET', 'POST'])
 def add_material():
     form = MaterialForm(request.form, csrf_enabled=False)
@@ -36,5 +36,6 @@ def add_material():
         material = Material(matnr, matdb)
         db.session.add(material)
         db.session.commit()
+        flash('物料 %s 添加成功！' % matnr, 'success')
         return redirect(url_for('material.list'))
     return render_template('material-add.html', form=form)
