@@ -11,12 +11,13 @@ def hello():
 @material.route('/materials')
 def list():
     materials = Material.query.all()
-    res = {}
-    for m in materials:
-        res[m.id] = {
-            'matnr': m.matnr
-        }
-    return jsonify(res)
+    # res = {}
+    # for m in materials:
+    #     res[m.id] = {
+    #         'matnr': m.matnr
+    #     }
+    # return jsonify(res)
+    return render_template('materials.html', materials=materials)
 
 @material.route('/add')
 def add():

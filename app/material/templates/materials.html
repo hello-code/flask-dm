@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+  <table class="table table-bordered">
+    <tr>
+      <th>Id</th>
+      <th>MatNR</th>
+      <th>MatDB</th>
+    </tr>
+    {% for m in materials %}
+      <tr>
+	<td>{{m.id}}</td>
+	<td>{{m.matnr}}</td>
+	<td>{{m.matdb}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
