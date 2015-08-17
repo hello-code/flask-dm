@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="{{url_for('material.add_material')}}" method="POST">
+    <div>{{form.matnr.label}}: {{form.matnr()}}</div>
+    <div>{{form.matdb.label}}: {{form.matdb()}}</div>
+    <button type="submit">Submit</button>
+    </form> 
+  </body>
+</html>
