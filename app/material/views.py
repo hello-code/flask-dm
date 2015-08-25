@@ -40,3 +40,11 @@ def add_material():
         flash('物料 %s 添加成功！' % matnr, 'success')
         return redirect(url_for('material.list'))
     return render_template('material-add.html', form=form)
+
+@material.route('/table')
+def hstable():
+    materials = Material.query.all()
+    data = [['id','matnr','matdb']]
+    for m in materials:
+        data.append([m.id, m.matnr, m.matdb])
+    return render_template('table.html',data=data)

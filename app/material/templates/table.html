@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block styles%}
+  {{super()}}
+  <link rel="stylesheet" media="screen" href="http://handsontable.com/dist/handsontable.full.css">
+{% endblock %}
+
+{% block page_content %}
+  <a href="{{url_for('material.add_material')}}" class="btn btn-primary">Add</a>
+
+  <div id="example"></div>
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+  <script src="http://handsontable.com/dist/handsontable.full.js"></script>
+
+  <script>
+   var data1 = [
+     ["", "Ford", "Volvo", "Toyota", "Honda"],
+     ["2014", 10, 11, 12, 13],
+     ["2015", 20, 11, 14, 13],
+     ["2016", 30, 15, 12, 13]
+   ];
+   //var dd = $.getJSON({{data}});
+   var container = document.getElementById('example'),hot;
+   var hot = new Handsontable(container, {
+     data:data1,
+     minSpareRows: 1,
+     rowHeaders: true,
+     colHeaders: true,
+     contextMenu: true
+   });
+  </script>
+{% endblock %}
