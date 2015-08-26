@@ -44,7 +44,12 @@ def add_material():
 @material.route('/table')
 def hstable():
     materials = Material.query.all()
-    data = [['id','matnr','matdb']]
+    data = [['id', 'matnr', 'matdb']]
     for m in materials:
         data.append([m.id, m.matnr, m.matdb])
-    return render_template('table.html',data=data)
+    return render_template('table.html', data=data)
+    # 用字典也行：
+    # res = []
+    # for m in materials:
+    #     res.append({"id": m.id, "matnr": m.matnr, "matdb": m.matdb})
+    # return render_template('table.html', data=res)
