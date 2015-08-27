@@ -46,10 +46,18 @@ def hstable():
     materials = Material.query.all()
     data = [['id', 'matnr', 'matdb']]
     for m in materials:
-        data.append([m.id, m.matnr, m.matdb])
+        item = [m.id, m.matnr, m.matdb]  # [1,None,'test']
+        # 替换掉None后再append
+        item = ['' if i is None else i for i in item]
+        data.append(item)
+
+    # 替换掉列表中的None文本
+    #data = str(data).replace('None', '')
+    
     return render_template('table.html', data=data)
     # 用字典也行：
     # res = []
+
     # for m in materials:
     #     res.append({"id": m.id, "matnr": m.matnr, "matdb": m.matdb})
     # return render_template('table.html', data=res)
