@@ -61,3 +61,8 @@ def hstable():
     # for m in materials:
     #     res.append({"id": m.id, "matnr": m.matnr, "matdb": m.matdb})
     # return render_template('table.html', data=res)
+
+@material.route('/save', methods=['GET', 'POST'])
+def save():
+    data = request.form['data']
+    return 'ok'

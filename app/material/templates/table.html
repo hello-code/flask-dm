@@ -1,37 +1,54 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <title>Document</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/handsontable/0.16.1/handsontable.full.min.css">
+{% extends "base.html" %}
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet" href="http://cdn.bootcss.com/handsontable/0.16.1/handsontable.full.min.css">
+{% endblock %}
 
-  </head>
-  <body>
-    <div id="example"></div>
+{% block page_content %}
+  <button class="btn btn-primary" id="save">save</button>
+  <div id="example"></div>
+{% endblock %}
 
-    <script src="http://cdn.bootcss.com/handsontable/0.16.1/handsontable.full.min.js"></script>
-    <script>
-     var data1 = [
-       ["", "Ford", "Volvo", "Toyota", "Honda"],
-       ["2014", 10, 11, 12, 13],
-       ["2015", 20, 11, 14, 13],
-       ["2016", 30, 15, 12, 13]
-     ];
-     var d2=[
-       {'id': 1, 'matnr': '123', 'matdb': 'moashi'},
-       {'id': 2, 'matnr': 'hello', 'matdb': 'world'},
-       {'id': 3, 'matnr': '', 'matdb': ''},
-       {'id': 5, 'matnr': 'goodbye', 'matdb': 'boy'}
-     ];
-     
-     var container = document.getElementById('example');
-     var hot = new Handsontable(container, {
-       data:{{data|safe}},//就是这个safe解决了问题！否则是这样：[&#39;id&#39;, &#39;matnr&#39;, &#39;matdb&#39;]
-       minSpareRows: 1,
-       rowHeaders: true,
-       colHeaders: true,
-       contextMenu: true
-     });
-    </script>
-  </body>
-</html>
+{% block scripts %}
+  {{super()}}
+  <script src="http://cdn.bootcss.com/handsontable/0.16.1/handsontable.full.min.js"></script>
+  <script>
+   var data1 = [
+     ["", "Ford", "Volvo", "Toyota", "Honda"],
+     ["2014", 10, 11, 12, 13],
+     ["2015", 20, 11, 14, 13],
+     ["2016", 30, 15, 12, 13]
+   ];
+   var d2=[
+     {'id': 1, 'matnr': '123', 'matdb': 'moashi'},
+     {'id': 2, 'matnr': 'hello', 'matdb': 'world'},
+     {'id': 3, 'matnr': '', 'matdb': ''},
+     {'id': 5, 'matnr': 'goodbye', 'matdb': 'boy'}
+   ];
+
+   var container = document.getElementById('example');
+   var hot = new Handsontable(container, {
+     data:{{data|safe}},//就是这个safe解决了问题！否则是这样：[&#39;id&#39;, &#39;matnr&#39;, &#39;matdb&#39;]
+     minSpareRows: 1,
+     rowHeaders: true,
+     colHeaders: true,
+     contextMenu: true
+   });
+
+   $('#save').click(function(){
+     console.log(hot.getData());
+     var mydata=hot.getData();
+     mydata=JSON.stringify(mydata);
+
+     $.ajax({
+       url:'{{url_for('material.save')}}',
+       type:'POST',
+       data:{"data":hot.getData()},
+       dataType:'json',
+       success:function(data){
+	 alert(data);
+       }
+     })
+   });// end save
+  </script>
+{% endblock %}
