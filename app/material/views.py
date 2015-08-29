@@ -44,7 +44,8 @@ def add_material():
 @material.route('/table')
 def hstable():
     materials = Material.query.all()
-    data = [['id', 'matnr', 'matdb']]
+    # data = [['id', 'matnr', 'matdb']]
+    data = []
     for m in materials:
         item = [m.id, m.matnr, m.matdb]  # [1,None,'test']
         # 替换掉None后再append

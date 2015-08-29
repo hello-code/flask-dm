@@ -30,8 +30,8 @@
    var hot = new Handsontable(container, {
      data:{{data|safe}},//就是这个safe解决了问题！否则是这样：[&#39;id&#39;, &#39;matnr&#39;, &#39;matdb&#39;]
      minSpareRows: 1,
-     rowHeaders: true,
-     colHeaders: true,
+     rowHeaders:true,
+     colHeaders: ['ID','Matnr','Matdb'],
      contextMenu: true
    });
 
