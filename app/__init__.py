@@ -11,7 +11,8 @@ app.config.from_object('config')
 
 # 数据库
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# 加上compare_type=True就可以探查到数据类型和字段长度的改变。
+migrate = Migrate(app, db, compare_type=True)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 bootstrap = Bootstrap(app)
