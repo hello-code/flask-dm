@@ -6,7 +6,9 @@
 
 {% block page_content %}
   <button class="btn btn-primary" id="save">save</button>
-  <div id="example"></div>
+  <input id="search_field" type="text" value=""/>
+  <button id="search">search</button>
+  <div id="example" style="height:200px;overflow:auto"></div>
 {% endblock %}
 
 {% block scripts %}
@@ -27,14 +29,31 @@
    ];
 
    var container = document.getElementById('example');
+   var searchField=document.getElementById('search_field');
    var hot = new Handsontable(container, {
      data:{{data|safe}},//就是这个safe解决了问题！否则是这样：[&#39;id&#39;, &#39;matnr&#39;, &#39;matdb&#39;]
      minSpareRows: 1,
      rowHeaders:true,
-     colHeaders: ['ID','Matnr','Matdb'],
-     contextMenu: true
+     colHeaders: ['ID','Matnr','Matdb','BUn'],
+     contextMenu: true,
+     stretchH:"all"
+     
    });
-
+//http://stackoverflow.com/questions/23521652/flask-and-python-how-to-make-search-engine-for-data-from-mysql-database
+   $('search').click(function(){
+     alert('hi')
+       /* var data=$('#search_field').val();
+	  console.log(data)
+	  $.ajax({
+	  url:'{{url_for('material.search')}}',
+	  data:data,
+	  type:'GET',
+	  success:function(d){
+	  console.log(d);
+	  }
+	  }) */
+   });//end search
+   
    $('#save').click(function(){
      console.log(hot.getData());
      var mydata=hot.getData();

@@ -47,7 +47,7 @@ def hstable():
     # data = [['id', 'matnr', 'matdb']]
     data = []
     for m in materials:
-        item = [m.id, m.matnr, m.matdb]  # [1,None,'test']
+        item = [m.id, m.matnr, m.matdb, m.bun]  # [1,None,'test']
         # 替换掉None后再append
         item = ['' if i is None else i for i in item]
         data.append(item)
@@ -67,3 +67,8 @@ def hstable():
 def save():
     data = request.form['data']
     return 'ok'
+
+@material.route('/search', methods=['GET', 'POST'])
+def search():
+    searchStr = request.args.get("data")
+    return searchStr
